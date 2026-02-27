@@ -1,0 +1,28 @@
+﻿# Node.js
+node_modules/
+
+# Build output
+dist/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/*.log
+
+# Runtime data
+storage/sqlite/*.db
+storage/sqlite/*.sqlite
+storage/sqlite/*.sqlite3
+storage/sqlite/*.db-shm
+storage/sqlite/*.db-wal
+storage/sqlite/*.sqlite-shm
+storage/sqlite/*.sqlite-wal
+storage/artifacts/**
+!storage/artifacts/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db

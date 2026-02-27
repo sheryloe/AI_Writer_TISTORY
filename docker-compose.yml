@@ -1,0 +1,20 @@
+﻿services:
+  ai_biseo_server:
+    image: node:20-bookworm
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
+    env_file:
+      - .env
+    environment:
+      TZ: ${TZ:-Asia/Seoul}
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - ./storage/sqlite:/app/storage/sqlite
+      - ./storage/artifacts:/app/storage/artifacts
+      - ./logs:/app/logs
+    restart: unless-stopped
