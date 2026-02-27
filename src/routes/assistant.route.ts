@@ -14,7 +14,7 @@ export const createAssistantRouter = ({ controller }: AssistantRouterOptions): R
     const query = req.query as Record<string, unknown>;
 
     const chatIdFromBody = typeof body === "object" && body !== null && "chatId" in body
-      ? body.chatId
+      ? (body as { chatId?: unknown }).chatId
       : undefined;
 
     const textFromBody = (() => {
@@ -61,8 +61,8 @@ export const createAssistantRouter = ({ controller }: AssistantRouterOptions): R
     const result = await controller.handleTelegramText({
       chatId,
       username:
-        typeof body === "object" && body !== null && typeof body.username === "string"
-          ? body.username
+        typeof body === "object" && body !== null && typeof (body as { username?: unknown }).username === "string"
+          ? (body as { username?: string }).username
           : undefined,
       text,
     });
