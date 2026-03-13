@@ -1,76 +1,294 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI_Writer_TISTORY | 티스토리 글 작성과 운영 자동화를 위한 AI Writer 서버</title>
-  <meta name="description" content="티스토리 발행 자동화와 AI 글쓰기 흐름을 Node.js와 TypeScript로 구성한 백엔드 중심 저장소입니다.">
-  <meta name="keywords" content="tistory ai writer, tistory automation nodejs, AI writer backend, 티스토리 자동화, AI 글쓰기 서버">
-  <meta name="robots" content="index,follow,max-image-preview:large">
-  <link rel="canonical" href="https://sheryloe.github.io/AI_Writer_TISTORY/">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="AI_Writer_TISTORY">
-  <meta property="og:description" content="티스토리 발행 자동화와 AI 글쓰기 흐름을 Node.js와 TypeScript로 구성한 백엔드 중심 저장소입니다.">
-  <meta property="og:url" content="https://sheryloe.github.io/AI_Writer_TISTORY/">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="AI_Writer_TISTORY">
-  <meta name="twitter:description" content="티스토리 발행 자동화와 AI 글쓰기 흐름을 Node.js와 TypeScript로 구성한 백엔드 중심 저장소입니다.">
-  <meta name="theme-color" content="#2563eb">
-  <link rel="stylesheet" href="./styles.css">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareSourceCode", "name": "AI_Writer_TISTORY", "codeRepository": "https://github.com/sheryloe/AI_Writer_TISTORY", "description": "티스토리 발행 자동화와 AI 글쓰기 흐름을 Node.js와 TypeScript로 구성한 백엔드 중심 저장소입니다.", "programmingLanguage": "Node.js 20+", "url": "https://sheryloe.github.io/AI_Writer_TISTORY/", "keywords": "tistory ai writer, tistory automation nodejs, AI writer backend, 티스토리 자동화, AI 글쓰기 서버"}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "AI_Writer_TISTORY는 무엇을 자동화하나요?", "acceptedAnswer": {"@type": "Answer", "text": "티스토리용 AI 글쓰기 초안과 운영 로그 축적, 발행 준비 흐름을 자동화합니다."}}, {"@type": "Question", "name": "어떤 환경에서 개발하나요?", "acceptedAnswer": {"@type": "Answer", "text": "Node.js 20 이상과 TypeScript, Express 기반으로 개발합니다."}}, {"@type": "Question", "name": "대시보드도 포함되나요?", "acceptedAnswer": {"@type": "Answer", "text": "포함됩니다. `dashboard/`와 `docs/`에 운영 화면 관련 파일이 들어 있습니다."}}]}]}</script>
-</head>
-<body>
-  <main class="shell">
-    <section class="hero">
-      <span class="eyebrow">Project Landing Page</span>
-      <div>
-        <h1>AI_Writer_TISTORY</h1>
-        <p class="lead">티스토리 발행 자동화와 AI 글쓰기 흐름을 Node.js와 TypeScript로 구성한 백엔드 중심 저장소입니다.</p>
-      </div>
-      <div class="cta-row">
-        <a class="primary" href="https://github.com/sheryloe/AI_Writer_TISTORY">GitHub Repository</a>
-        <a href="https://sheryloe.github.io/">Project Hub</a>
-      </div>
-      <div class="meta-row">
-        <span class="meta-chip">티스토리 글 작성과 운영 자동화를 위한 AI Writer 서버</span>
-        <span class="meta-chip">티스토리 자동 발행, AI 초안 작성, 운영 로그 축적을 함께 하고 싶은 개인 운영자</span>
-      </div>
-      <div class="chip-row"><span class="chip">tistory ai writer</span><span class="chip">tistory automation nodejs</span><span class="chip">AI writer backend</span><span class="chip">티스토리 자동화</span><span class="chip">AI 글쓰기 서버</span></div>
-    </section>
-    <section class="section">
-      <h2>Why This Project Exists</h2>
-      <p>티스토리용 글쓰기 자동화는 초안 생성, 프롬프트 로그, 발행 전 상태 관리가 분리되면 운영 난도가 급격히 높아집니다.</p>
-      <div class="cards"><article class="card"><h3>Feature</h3><p>TypeScript 기반 Express 서버 구조</p></article><article class="card"><h3>Feature</h3><p>프롬프트 로그와 운영 기록을 저장하는 로컬 스토리지 구조</p></article><article class="card"><h3>Feature</h3><p>OpenAI 및 Notion 연동을 전제로 한 자동화 스크립트</p></article><article class="card"><h3>Feature</h3><p>대시보드와 서버 소스가 함께 포함된 운영형 저장소</p></article></div>
-    </section>
-    <section class="section split">
-      <div class="stack">
-        <div>
-          <h2>Workflow</h2>
-          <ul class="clean"><li>환경 변수와 API 키 구성</li><li>개발 서버 실행</li><li>AI 초안 생성과 티스토리 운영 자동화 흐름 점검</li></ul>
-        </div>
-        <div>
-          <h2>Tech Stack</h2>
-          <ul class="clean"><li>Node.js 20+</li><li>TypeScript</li><li>Express</li><li>SQLite</li><li>Docker Compose</li></ul>
-        </div>
-      </div>
-      <div class="flow">
-        <div>
-          <h2>Quick Start</h2>
-          <pre>`.env.example`을 복사해 환경 변수를 설정합니다.
-`npm install` 후 `npm run dev`로 개발 서버를 실행합니다.
-배포 전에는 `npm run build`로 TypeScript 빌드를 확인합니다.</pre>
-        </div>
-      </div>
-    </section>
-    <section class="section">
-      <h2>Repository Structure</h2>
-      <ul class="clean"><li>`src/`: 서버 로직</li><li>`scripts/`: 운영 자동화 보조 스크립트</li><li>`dashboard/`, `docs/`: 관리 화면과 문서</li></ul>
-    </section>
-    <section class="section">
-      <h2>FAQ</h2>
-      <div class="cards"><article class="faq-item"><h3>AI_Writer_TISTORY는 무엇을 자동화하나요?</h3><p>티스토리용 AI 글쓰기 초안과 운영 로그 축적, 발행 준비 흐름을 자동화합니다.</p></article><article class="faq-item"><h3>어떤 환경에서 개발하나요?</h3><p>Node.js 20 이상과 TypeScript, Express 기반으로 개발합니다.</p></article><article class="faq-item"><h3>대시보드도 포함되나요?</h3><p>포함됩니다. `dashboard/`와 `docs/`에 운영 화면 관련 파일이 들어 있습니다.</p></article></div>
-    </section>
-    <p class="footer">Last updated: 2026-03-12 · Owner: sheryloe</p>
-  </main>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI_Writer_TISTORY | 티스토리 글쓰기와 발행 운영을 묶은 AI Writer 백엔드</title>
+    <meta
+      name="description"
+      content="티스토리용 AI 초안 생성, 프롬프트 로그, SQLite 운영 기록, 발행 전 점검 흐름을 하나의 백엔드 루프로 정리한 프로젝트입니다."
+    >
+    <meta
+      name="keywords"
+      content="tistory ai writer, tistory automation nodejs, AI writer backend, 티스토리 자동화, AI 글쓰기 서버"
+    >
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="googlebot" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#2563eb">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="AI_Writer_TISTORY">
+    <meta property="og:title" content="AI_Writer_TISTORY | 티스토리 글쓰기와 발행 운영을 묶은 AI Writer 백엔드">
+    <meta
+      property="og:description"
+      content="AI 초안 생성부터 발행 준비, Notion 로그 정리까지 티스토리 운영 흐름을 백엔드 중심으로 정리한 저장소입니다."
+    >
+    <meta property="og:url" content="https://sheryloe.github.io/AI_Writer_TISTORY/">
+    <meta
+      property="og:image"
+      content="https://sheryloe.github.io/AI_Writer_TISTORY/assets/screenshots/ai-writer-tistory-cover.png"
+    >
+    <meta property="og:image:alt" content="AI_Writer_TISTORY 블로그형 소개 페이지 커버">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI_Writer_TISTORY">
+    <meta
+      name="twitter:description"
+      content="티스토리 AI 글쓰기, 프롬프트 로그, 운영 메모를 묶은 Node.js 백엔드 프로젝트"
+    >
+    <meta
+      name="twitter:image"
+      content="https://sheryloe.github.io/AI_Writer_TISTORY/assets/screenshots/ai-writer-tistory-cover.png"
+    >
+    <link rel="canonical" href="https://sheryloe.github.io/AI_Writer_TISTORY/">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="./styles.css">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "SoftwareSourceCode",
+            "name": "AI_Writer_TISTORY",
+            "codeRepository": "https://github.com/sheryloe/AI_Writer_TISTORY",
+            "url": "https://sheryloe.github.io/AI_Writer_TISTORY/",
+            "programmingLanguage": "Node.js, TypeScript, Express",
+            "description": "티스토리용 AI 초안 생성, 프롬프트 로그, SQLite 운영 기록, 발행 전 점검 흐름을 하나의 백엔드 루프로 정리한 프로젝트입니다.",
+            "keywords": "tistory ai writer, tistory automation nodejs, AI writer backend, 티스토리 자동화, AI 글쓰기 서버"
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "AI_Writer_TISTORY는 무엇을 자동화하나요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "티스토리용 AI 글쓰기 초안과 운영 로그 축적, 발행 준비 흐름을 자동화합니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "어떤 환경에서 개발하나요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Node.js 20 이상과 TypeScript, Express, SQLite, Docker Compose를 중심으로 개발합니다."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "운영 기록도 함께 관리하나요?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "예. Prompt log와 SQLite를 함께 사용해 초안 생성과 운영 메모를 같은 흐름으로 관리합니다."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="#top">
+          <span class="brand-mark">AW</span>
+          <span class="brand-text">
+            <strong>AI_Writer_TISTORY</strong>
+            <span>Tistory AI writing backend</span>
+          </span>
+        </a>
+        <nav class="topnav" aria-label="페이지 이동">
+          <a href="#features">특징</a>
+          <a href="#workflow">구성</a>
+          <a href="#notes">운영 메모</a>
+          <a href="#faq">FAQ</a>
+          <a href="https://github.com/sheryloe/AI_Writer_TISTORY">GitHub</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Blog automation backend</p>
+            <h1>티스토리 글쓰기 자동화를<br>초안 생성에서 운영 로그까지<br>한 백엔드로 묶기</h1>
+            <p class="hero-body">
+              AI_Writer_TISTORY는 티스토리용 글쓰기 자동화가 왜 단순한 생성기보다 운영형 백엔드에 가까운지 보여 주는 저장소입니다.
+              초안 생성, 프롬프트 로그, SQLite 기록, 발행 준비 상태를 따로 분리하지 않고 하나의 루프로 묶어 두어
+              개인 운영자가 반복 작업을 줄이면서도 기록을 놓치지 않게 설계했습니다.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="https://github.com/sheryloe/AI_Writer_TISTORY">GitHub 저장소 보기</a>
+              <a class="button secondary" href="https://sheryloe.github.io/">프로젝트 허브로 이동</a>
+            </div>
+            <ul class="hero-meta">
+              <li>티스토리 AI 초안 생성</li>
+              <li>Prompt log + SQLite</li>
+              <li>발행 전 운영 점검 루프</li>
+            </ul>
+          </div>
+
+          <div class="hero-visual" aria-label="AI_Writer_TISTORY 핵심 구조">
+            <figure class="visual-card visual-main visual-note">
+              <span class="note-badge">AI Writer Ops</span>
+              <strong>초안 생성부터 발행 준비 기록까지 같은 백엔드 언어로 정리</strong>
+              <p>티스토리 자동화는 초안 생성만으로 끝나지 않습니다. 어떤 프롬프트를 썼는지, 어떤 상태에서 멈췄는지, 어떤 글을 다시 살펴봐야 하는지까지 같이 남겨야 운영이 편해집니다.</p>
+              <div class="metric-row">
+                <span class="metric-chip">Node.js 20+</span>
+                <span class="metric-chip">TypeScript</span>
+                <span class="metric-chip">Express</span>
+                <span class="metric-chip">SQLite</span>
+              </div>
+              <ul class="note-list">
+                <li>Prompt log와 운영 기록을 함께 저장</li>
+                <li>발행 전 상태 점검을 위한 백엔드 중심 구조</li>
+                <li>Notion 연동을 고려한 자동화 확장성</li>
+              </ul>
+            </figure>
+            <figure class="visual-card visual-side visual-note">
+              <span class="note-badge">Pipeline</span>
+              <strong>Draft → Review → Publish readiness</strong>
+              <p>초안을 만드는 단계와 실제로 운영 가능한 글로 다듬는 단계를 분리하되, 로그는 하나의 흐름으로 연결합니다.</p>
+            </figure>
+            <div class="visual-caption">
+              <strong>글쓰기 자동화보다 운영 자동화에 더 가깝습니다</strong>
+              <p>생성 결과만 남는 구조가 아니라, 운영자가 다음 액션을 이어갈 수 있는 기록 중심 백엔드로 설명되는 페이지입니다.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="feature-strip" id="features">
+          <article>
+            <span>01</span>
+            <h2>티스토리 자동화 서버를 독립 레포로 분리</h2>
+            <p>글쓰기 자동화 로직을 다른 실험용 코드와 섞지 않고, 발행 루프 중심 저장소로 또렷하게 관리합니다.</p>
+          </article>
+          <article>
+            <span>02</span>
+            <h2>Prompt log와 SQLite로 운영형 백엔드 구성</h2>
+            <p>무엇을 생성했는지뿐 아니라 어떤 운영 맥락에서 만들었는지를 같이 저장해 회고가 가능하게 했습니다.</p>
+          </article>
+          <article>
+            <span>03</span>
+            <h2>Notion 운영 로그와 발행 파이프라인 연결</h2>
+            <p>콘텐츠 초안, 운영 메모, 발행 준비 체크를 같은 흐름으로 읽을 수 있게 정리해 검색 유입에도 설명력이 높습니다.</p>
+          </article>
+        </section>
+
+        <section class="workflow" id="workflow">
+          <div class="section-heading">
+            <p class="eyebrow">Chapters</p>
+            <h2>프로젝트를 이해하는 핵심 3단계</h2>
+            <p class="section-body">
+              저장소 안의 Notion 문서 제목을 그대로 살려, 이 프로젝트가 어떤 순서로 설계되었는지 블로그 글처럼 읽히게 구성했습니다.
+            </p>
+          </div>
+          <div class="workflow-grid">
+            <article class="workflow-card">
+              <strong>1. 티스토리 자동화 서버를 별도 레포로 분리한 이유</strong>
+              <p>글 생성 로직이 아니라 운영 루프 자체를 저장소의 중심으로 두기 위한 출발점입니다.</p>
+            </article>
+            <article class="workflow-card">
+              <strong>2. Prompt log와 SQLite를 붙여 백엔드를 운영형으로 만든 과정</strong>
+              <p>반복 실행과 기록 축적을 고려해 단순 API 서버보다 운영 콘솔에 가까운 구조로 발전시켰습니다.</p>
+            </article>
+            <article class="workflow-card">
+              <strong>3. 티스토리 발행 파이프라인과 Notion 운영 로그를 묶은 결과</strong>
+              <p>초안 생성과 발행 준비 사이에 남는 운영 공백을 문서와 로그로 메우는 방식입니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="screenshots" id="notes">
+          <div class="section-heading">
+            <p class="eyebrow">Operating notes</p>
+            <h2>실행 화면 대신 운영 포인트를 먼저 보여 주는 페이지</h2>
+            <p class="section-body">
+              아직 런타임 캡처보다 구조 설명이 더 중요한 저장소라서, 사용자가 가장 빨리 이해해야 할 운영 포인트를 본문 안에 카드 형태로 녹였습니다.
+            </p>
+          </div>
+          <div class="flow-banner">
+            <article class="flow-step">
+              <span>STEP 1</span>
+              <strong>환경 변수와 API 키를 먼저 맞춥니다</strong>
+              <p>`.env.example`을 기준으로 OpenAI와 운영용 환경 변수를 정리한 뒤 개발 서버를 띄우는 흐름을 전제로 합니다.</p>
+            </article>
+            <article class="flow-step">
+              <span>STEP 2</span>
+              <strong>초안 생성과 운영 로그를 함께 확인합니다</strong>
+              <p>생성 결과만 확인하는 것이 아니라 prompt log와 SQLite 기록을 같이 읽는 것이 핵심입니다.</p>
+            </article>
+          </div>
+          <div class="workflow-grid">
+            <article class="workflow-card">
+              <strong>Quick start</strong>
+              <p>`npm install`, `npm run dev`, 필요 시 `npm run build`로 백엔드 상태를 점검합니다.</p>
+            </article>
+            <article class="workflow-card">
+              <strong>Repository structure</strong>
+              <p>`src/`, `scripts/`, `dashboard/`, `docs/`를 나눠 실행 로직과 운영 문서를 분리했습니다.</p>
+            </article>
+            <article class="workflow-card">
+              <strong>Audience</strong>
+              <p>티스토리 자동 발행과 AI 초안, 운영 로그 축적을 동시에 관리하고 싶은 개인 운영자에게 맞춘 구조입니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="seo-copy">
+          <div class="section-heading">
+            <p class="eyebrow">Search intent</p>
+            <h2>검색에서 바로 의도가 읽히도록 정리한 키워드</h2>
+          </div>
+          <div class="seo-grid">
+            <article>
+              <h3>국문 키워드</h3>
+              <p>티스토리 자동화, AI 글쓰기 서버, 발행 운영 로그 같은 검색어가 제목과 본문에 자연스럽게 들어가도록 구성했습니다.</p>
+            </article>
+            <article>
+              <h3>영문 키워드</h3>
+              <p>tistory ai writer, tistory automation nodejs, AI writer backend 같은 검색 의도도 함께 반영합니다.</p>
+            </article>
+            <article>
+              <h3>구조화 데이터</h3>
+              <p>SoftwareSourceCode와 FAQPage를 같이 넣어 검색 결과와 링크 공유에서 설명력이 높도록 정리했습니다.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="faq" id="faq">
+          <div class="section-heading">
+            <p class="eyebrow">FAQ</p>
+            <h2>자주 묻는 질문</h2>
+          </div>
+          <div class="faq-list">
+            <details open>
+              <summary>AI_Writer_TISTORY는 무엇을 자동화하나요?</summary>
+              <p>티스토리용 AI 글쓰기 초안과 운영 로그 축적, 발행 준비 흐름을 자동화합니다.</p>
+            </details>
+            <details>
+              <summary>어떤 환경에서 개발하나요?</summary>
+              <p>Node.js 20 이상과 TypeScript, Express, SQLite, Docker Compose를 중심으로 개발합니다.</p>
+            </details>
+            <details>
+              <summary>운영 기록도 함께 관리하나요?</summary>
+              <p>예. Prompt log와 SQLite를 함께 사용해 초안 생성과 운영 메모를 같은 흐름으로 관리합니다.</p>
+            </details>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Last updated: 2026-03-13</span>
+        <a href="https://github.com/sheryloe/AI_Writer_TISTORY">Repository</a>
+      </footer>
+    </div>
+  </body>
 </html>

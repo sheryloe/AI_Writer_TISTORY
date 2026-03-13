@@ -1,0 +1,11 @@
+{
+  "name": "AI_Writer_TISTORY",
+  "short_name": "AI_Writer",
+  "description": "티스토리 AI 글쓰기와 발행 운영을 묶은 백엔드 프로젝트",
+  "lang": "ko-KR",
+  "start_url": "https://sheryloe.github.io/AI_Writer_TISTORY/",
+  "scope": "https://sheryloe.github.io/AI_Writer_TISTORY/",
+  "display": "standalone",
+  "background_color": "#f4eddc",
+  "theme_color": "#2563eb"
+}
