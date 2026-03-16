@@ -1,294 +1,168 @@
-<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AI_Writer_TISTORY | 티스토리 글쓰기와 발행 운영을 묶은 AI Writer 백엔드</title>
-    <meta
-      name="description"
-      content="티스토리용 AI 초안 생성, 프롬프트 로그, SQLite 운영 기록, 발행 전 점검 흐름을 하나의 백엔드 루프로 정리한 프로젝트입니다."
-    >
-    <meta
-      name="keywords"
-      content="tistory ai writer, tistory automation nodejs, AI writer backend, 티스토리 자동화, AI 글쓰기 서버"
-    >
-    <meta name="robots" content="index, follow, max-image-preview:large">
-    <meta name="googlebot" content="index, follow, max-image-preview:large">
-    <meta name="theme-color" content="#2563eb">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="ko_KR">
-    <meta property="og:site_name" content="AI_Writer_TISTORY">
-    <meta property="og:title" content="AI_Writer_TISTORY | 티스토리 글쓰기와 발행 운영을 묶은 AI Writer 백엔드">
-    <meta
-      property="og:description"
-      content="AI 초안 생성부터 발행 준비, Notion 로그 정리까지 티스토리 운영 흐름을 백엔드 중심으로 정리한 저장소입니다."
-    >
-    <meta property="og:url" content="https://sheryloe.github.io/AI_Writer_TISTORY/">
-    <meta
-      property="og:image"
-      content="https://sheryloe.github.io/AI_Writer_TISTORY/assets/screenshots/ai-writer-tistory-cover.png"
-    >
-    <meta property="og:image:alt" content="AI_Writer_TISTORY 블로그형 소개 페이지 커버">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AI_Writer_TISTORY">
-    <meta
-      name="twitter:description"
-      content="티스토리 AI 글쓰기, 프롬프트 로그, 운영 메모를 묶은 Node.js 백엔드 프로젝트"
-    >
-    <meta
-      name="twitter:image"
-      content="https://sheryloe.github.io/AI_Writer_TISTORY/assets/screenshots/ai-writer-tistory-cover.png"
-    >
-    <link rel="canonical" href="https://sheryloe.github.io/AI_Writer_TISTORY/">
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&family=Outfit:wght@500;600;700;800&display=swap"
-      rel="stylesheet"
-    >
-    <link rel="stylesheet" href="./styles.css">
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "SoftwareSourceCode",
-            "name": "AI_Writer_TISTORY",
-            "codeRepository": "https://github.com/sheryloe/AI_Writer_TISTORY",
-            "url": "https://sheryloe.github.io/AI_Writer_TISTORY/",
-            "programmingLanguage": "Node.js, TypeScript, Express",
-            "description": "티스토리용 AI 초안 생성, 프롬프트 로그, SQLite 운영 기록, 발행 전 점검 흐름을 하나의 백엔드 루프로 정리한 프로젝트입니다.",
-            "keywords": "tistory ai writer, tistory automation nodejs, AI writer backend, 티스토리 자동화, AI 글쓰기 서버"
-          },
-          {
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "AI_Writer_TISTORY는 무엇을 자동화하나요?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "티스토리용 AI 글쓰기 초안과 운영 로그 축적, 발행 준비 흐름을 자동화합니다."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "어떤 환경에서 개발하나요?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Node.js 20 이상과 TypeScript, Express, SQLite, Docker Compose를 중심으로 개발합니다."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "운영 기록도 함께 관리하나요?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "예. Prompt log와 SQLite를 함께 사용해 초안 생성과 운영 메모를 같은 흐름으로 관리합니다."
-                }
-              }
-            ]
-          }
-        ]
-      }
-    </script>
-  </head>
-  <body>
-    <div class="page-shell">
-      <header class="topbar">
-        <a class="brand" href="#top">
-          <span class="brand-mark">AW</span>
-          <span class="brand-text">
-            <strong>AI_Writer_TISTORY</strong>
-            <span>Tistory AI writing backend</span>
-          </span>
-        </a>
-        <nav class="topnav" aria-label="페이지 이동">
-          <a href="#features">특징</a>
-          <a href="#workflow">구성</a>
-          <a href="#notes">운영 메모</a>
-          <a href="#faq">FAQ</a>
-          <a href="https://github.com/sheryloe/AI_Writer_TISTORY">GitHub</a>
-        </nav>
-      </header>
-
-      <main id="top">
-        <section class="hero">
-          <div class="hero-copy">
-            <p class="eyebrow">Blog automation backend</p>
-            <h1>티스토리 글쓰기 자동화를<br>초안 생성에서 운영 로그까지<br>한 백엔드로 묶기</h1>
-            <p class="hero-body">
-              AI_Writer_TISTORY는 티스토리용 글쓰기 자동화가 왜 단순한 생성기보다 운영형 백엔드에 가까운지 보여 주는 저장소입니다.
-              초안 생성, 프롬프트 로그, SQLite 기록, 발행 준비 상태를 따로 분리하지 않고 하나의 루프로 묶어 두어
-              개인 운영자가 반복 작업을 줄이면서도 기록을 놓치지 않게 설계했습니다.
-            </p>
-            <div class="hero-actions">
-              <a class="button primary" href="https://github.com/sheryloe/AI_Writer_TISTORY">GitHub 저장소 보기</a>
-              <a class="button secondary" href="https://sheryloe.github.io/">프로젝트 허브로 이동</a>
-            </div>
-            <ul class="hero-meta">
-              <li>티스토리 AI 초안 생성</li>
-              <li>Prompt log + SQLite</li>
-              <li>발행 전 운영 점검 루프</li>
-            </ul>
-          </div>
-
-          <div class="hero-visual" aria-label="AI_Writer_TISTORY 핵심 구조">
-            <figure class="visual-card visual-main visual-note">
-              <span class="note-badge">AI Writer Ops</span>
-              <strong>초안 생성부터 발행 준비 기록까지 같은 백엔드 언어로 정리</strong>
-              <p>티스토리 자동화는 초안 생성만으로 끝나지 않습니다. 어떤 프롬프트를 썼는지, 어떤 상태에서 멈췄는지, 어떤 글을 다시 살펴봐야 하는지까지 같이 남겨야 운영이 편해집니다.</p>
-              <div class="metric-row">
-                <span class="metric-chip">Node.js 20+</span>
-                <span class="metric-chip">TypeScript</span>
-                <span class="metric-chip">Express</span>
-                <span class="metric-chip">SQLite</span>
-              </div>
-              <ul class="note-list">
-                <li>Prompt log와 운영 기록을 함께 저장</li>
-                <li>발행 전 상태 점검을 위한 백엔드 중심 구조</li>
-                <li>Notion 연동을 고려한 자동화 확장성</li>
-              </ul>
-            </figure>
-            <figure class="visual-card visual-side visual-note">
-              <span class="note-badge">Pipeline</span>
-              <strong>Draft → Review → Publish readiness</strong>
-              <p>초안을 만드는 단계와 실제로 운영 가능한 글로 다듬는 단계를 분리하되, 로그는 하나의 흐름으로 연결합니다.</p>
-            </figure>
-            <div class="visual-caption">
-              <strong>글쓰기 자동화보다 운영 자동화에 더 가깝습니다</strong>
-              <p>생성 결과만 남는 구조가 아니라, 운영자가 다음 액션을 이어갈 수 있는 기록 중심 백엔드로 설명되는 페이지입니다.</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="feature-strip" id="features">
-          <article>
-            <span>01</span>
-            <h2>티스토리 자동화 서버를 독립 레포로 분리</h2>
-            <p>글쓰기 자동화 로직을 다른 실험용 코드와 섞지 않고, 발행 루프 중심 저장소로 또렷하게 관리합니다.</p>
-          </article>
-          <article>
-            <span>02</span>
-            <h2>Prompt log와 SQLite로 운영형 백엔드 구성</h2>
-            <p>무엇을 생성했는지뿐 아니라 어떤 운영 맥락에서 만들었는지를 같이 저장해 회고가 가능하게 했습니다.</p>
-          </article>
-          <article>
-            <span>03</span>
-            <h2>Notion 운영 로그와 발행 파이프라인 연결</h2>
-            <p>콘텐츠 초안, 운영 메모, 발행 준비 체크를 같은 흐름으로 읽을 수 있게 정리해 검색 유입에도 설명력이 높습니다.</p>
-          </article>
-        </section>
-
-        <section class="workflow" id="workflow">
-          <div class="section-heading">
-            <p class="eyebrow">Chapters</p>
-            <h2>프로젝트를 이해하는 핵심 3단계</h2>
-            <p class="section-body">
-              저장소 안의 Notion 문서 제목을 그대로 살려, 이 프로젝트가 어떤 순서로 설계되었는지 블로그 글처럼 읽히게 구성했습니다.
-            </p>
-          </div>
-          <div class="workflow-grid">
-            <article class="workflow-card">
-              <strong>1. 티스토리 자동화 서버를 별도 레포로 분리한 이유</strong>
-              <p>글 생성 로직이 아니라 운영 루프 자체를 저장소의 중심으로 두기 위한 출발점입니다.</p>
-            </article>
-            <article class="workflow-card">
-              <strong>2. Prompt log와 SQLite를 붙여 백엔드를 운영형으로 만든 과정</strong>
-              <p>반복 실행과 기록 축적을 고려해 단순 API 서버보다 운영 콘솔에 가까운 구조로 발전시켰습니다.</p>
-            </article>
-            <article class="workflow-card">
-              <strong>3. 티스토리 발행 파이프라인과 Notion 운영 로그를 묶은 결과</strong>
-              <p>초안 생성과 발행 준비 사이에 남는 운영 공백을 문서와 로그로 메우는 방식입니다.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="screenshots" id="notes">
-          <div class="section-heading">
-            <p class="eyebrow">Operating notes</p>
-            <h2>실행 화면 대신 운영 포인트를 먼저 보여 주는 페이지</h2>
-            <p class="section-body">
-              아직 런타임 캡처보다 구조 설명이 더 중요한 저장소라서, 사용자가 가장 빨리 이해해야 할 운영 포인트를 본문 안에 카드 형태로 녹였습니다.
-            </p>
-          </div>
-          <div class="flow-banner">
-            <article class="flow-step">
-              <span>STEP 1</span>
-              <strong>환경 변수와 API 키를 먼저 맞춥니다</strong>
-              <p>`.env.example`을 기준으로 OpenAI와 운영용 환경 변수를 정리한 뒤 개발 서버를 띄우는 흐름을 전제로 합니다.</p>
-            </article>
-            <article class="flow-step">
-              <span>STEP 2</span>
-              <strong>초안 생성과 운영 로그를 함께 확인합니다</strong>
-              <p>생성 결과만 확인하는 것이 아니라 prompt log와 SQLite 기록을 같이 읽는 것이 핵심입니다.</p>
-            </article>
-          </div>
-          <div class="workflow-grid">
-            <article class="workflow-card">
-              <strong>Quick start</strong>
-              <p>`npm install`, `npm run dev`, 필요 시 `npm run build`로 백엔드 상태를 점검합니다.</p>
-            </article>
-            <article class="workflow-card">
-              <strong>Repository structure</strong>
-              <p>`src/`, `scripts/`, `dashboard/`, `docs/`를 나눠 실행 로직과 운영 문서를 분리했습니다.</p>
-            </article>
-            <article class="workflow-card">
-              <strong>Audience</strong>
-              <p>티스토리 자동 발행과 AI 초안, 운영 로그 축적을 동시에 관리하고 싶은 개인 운영자에게 맞춘 구조입니다.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="seo-copy">
-          <div class="section-heading">
-            <p class="eyebrow">Search intent</p>
-            <h2>검색에서 바로 의도가 읽히도록 정리한 키워드</h2>
-          </div>
-          <div class="seo-grid">
-            <article>
-              <h3>국문 키워드</h3>
-              <p>티스토리 자동화, AI 글쓰기 서버, 발행 운영 로그 같은 검색어가 제목과 본문에 자연스럽게 들어가도록 구성했습니다.</p>
-            </article>
-            <article>
-              <h3>영문 키워드</h3>
-              <p>tistory ai writer, tistory automation nodejs, AI writer backend 같은 검색 의도도 함께 반영합니다.</p>
-            </article>
-            <article>
-              <h3>구조화 데이터</h3>
-              <p>SoftwareSourceCode와 FAQPage를 같이 넣어 검색 결과와 링크 공유에서 설명력이 높도록 정리했습니다.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="faq" id="faq">
-          <div class="section-heading">
-            <p class="eyebrow">FAQ</p>
-            <h2>자주 묻는 질문</h2>
-          </div>
-          <div class="faq-list">
-            <details open>
-              <summary>AI_Writer_TISTORY는 무엇을 자동화하나요?</summary>
-              <p>티스토리용 AI 글쓰기 초안과 운영 로그 축적, 발행 준비 흐름을 자동화합니다.</p>
-            </details>
-            <details>
-              <summary>어떤 환경에서 개발하나요?</summary>
-              <p>Node.js 20 이상과 TypeScript, Express, SQLite, Docker Compose를 중심으로 개발합니다.</p>
-            </details>
-            <details>
-              <summary>운영 기록도 함께 관리하나요?</summary>
-              <p>예. Prompt log와 SQLite를 함께 사용해 초안 생성과 운영 메모를 같은 흐름으로 관리합니다.</p>
-            </details>
-          </div>
-        </section>
-      </main>
-
-      <footer class="footer">
-        <span>Last updated: 2026-03-13</span>
-        <a href="https://github.com/sheryloe/AI_Writer_TISTORY">Repository</a>
-      </footer>
+<!DOCTYPE html>
+<html lang="ko" data-theme="cupcake">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI_Writer_TISTORY | 티스토리 발행을 위한 AI 글쓰기 운영 백엔드</title>
+  <meta name="description" content="AI 초안 생성, 운영 로그, 발행 준비를 하나의 백엔드 흐름으로 묶는 티스토리 자동화 프로젝트">
+  <meta name="theme-color" content="#f97316">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI_Writer_TISTORY | 티스토리 발행을 위한 AI 글쓰기 운영 백엔드">
+  <meta property="og:description" content="초안 생성부터 운영 기록, 발행 준비까지 이어지는 티스토리 AI 자동화 백엔드">
+  <meta property="og:url" content="https://sheryloe.github.io/AI_Writer_TISTORY/">
+  <meta property="og:image" content="https://sheryloe.github.io/AI_Writer_TISTORY/assets/screenshots/ai-writer-tistory-cover.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Serif+KR:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.24/dist/full.min.css" rel="stylesheet" type="text/css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: "DM Sans", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(251, 146, 60, 0.16), transparent 24rem),
+        radial-gradient(circle at bottom right, rgba(253, 224, 71, 0.18), transparent 24rem),
+        linear-gradient(180deg, #fffaf4 0%, #fff3e4 52%, #f9e3cb 100%);
+      color: #28170d;
+    }
+    .display-font { font-family: "Noto Serif KR", serif; }
+    .paper {
+      background: rgba(255, 250, 244, 0.84);
+      border: 1px solid rgba(113, 63, 18, 0.12);
+      box-shadow: 0 26px 60px rgba(120, 72, 24, 0.12);
+      backdrop-filter: blur(16px);
+    }
+  </style>
+</head>
+<body>
+  <header class="sticky top-0 z-50 border-b border-amber-900/10 bg-white/70 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+      <a href="#top" class="flex items-center gap-3">
+        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-500 text-white shadow-lg shadow-orange-500/25">
+          <span class="display-font text-lg font-bold">AW</span>
+        </div>
+        <div>
+          <p class="display-font text-lg font-bold">AI_Writer_TISTORY</p>
+          <p class="text-xs uppercase tracking-[0.24em] text-amber-900/60">Editorial backend</p>
+        </div>
+      </a>
+      <nav class="hidden gap-3 md:flex">
+        <a class="btn btn-ghost btn-sm" href="#pipeline">파이프라인</a>
+        <a class="btn btn-ghost btn-sm" href="#focus">운영 포인트</a>
+        <a class="btn btn-ghost btn-sm" href="#todo">TODO</a>
+        <a class="btn btn-warning btn-sm text-white" href="https://github.com/sheryloe/AI_Writer_TISTORY">GitHub</a>
+      </nav>
     </div>
-  </body>
+  </header>
+
+  <main id="top" class="mx-auto flex max-w-7xl flex-col gap-10 px-6 pb-24 pt-10">
+    <section class="grid items-center gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+      <div class="paper rounded-[2rem] p-8 lg:p-10">
+        <span class="badge badge-warning badge-outline">Tistory automation backend</span>
+        <h1 class="display-font mt-5 max-w-3xl text-4xl font-black leading-tight md:text-6xl">
+          티스토리 운영자가
+          실제로 쓰게 될
+          발행 준비 백엔드
+        </h1>
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-amber-950/80">
+          AI_Writer_TISTORY는 초안 생성만 잘하는 도구가 아니라,
+          초안이 어떻게 쌓이고 어떤 로그가 남고 어떤 순서로 발행 준비까지 가는지를
+          운영 관점에서 정리하는 프로젝트입니다.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a class="btn btn-warning text-white" href="https://github.com/sheryloe/AI_Writer_TISTORY">저장소 보기</a>
+          <a class="btn btn-outline border-amber-800/30 bg-white" href="https://github.com/sheryloe/AI_Writer_TISTORY/issues">이슈 확인</a>
+        </div>
+        <div class="mt-8 grid gap-3 sm:grid-cols-3">
+          <div class="rounded-2xl bg-white/70 p-4 ring-1 ring-amber-900/10">
+            <p class="text-xs uppercase tracking-[0.2em] text-orange-600">Draft</p>
+            <p class="mt-2 font-semibold">AI 초안 생성</p>
+          </div>
+          <div class="rounded-2xl bg-white/70 p-4 ring-1 ring-amber-900/10">
+            <p class="text-xs uppercase tracking-[0.2em] text-orange-600">Log</p>
+            <p class="mt-2 font-semibold">Prompt / 운영 기록</p>
+          </div>
+          <div class="rounded-2xl bg-white/70 p-4 ring-1 ring-amber-900/10">
+            <p class="text-xs uppercase tracking-[0.2em] text-orange-600">Publish</p>
+            <p class="mt-2 font-semibold">발행 준비 흐름</p>
+          </div>
+        </div>
+      </div>
+
+      <figure class="paper overflow-hidden rounded-[2rem] p-4">
+        <img class="w-full rounded-[1.5rem] object-cover" src="assets/screenshots/ai-writer-tistory-cover.png" alt="AI Writer Tistory cover">
+      </figure>
+    </section>
+
+    <section id="pipeline" class="paper rounded-[2rem] p-8 lg:p-10">
+      <div class="max-w-3xl">
+        <span class="badge badge-outline badge-warning">Pipeline</span>
+        <h2 class="display-font mt-4 text-3xl font-black md:text-4xl">글쓰기는 생성보다 운영 흐름이 더 중요합니다</h2>
+        <p class="mt-4 text-lg leading-8 text-amber-950/75">
+          초안 생성만 자동화하면 결국 사람 손이 많이 갑니다.
+          이 저장소는 생성 이후의 상태 관리와 발행 준비를 함께 다루는 백엔드 역할에 더 가깝습니다.
+        </p>
+      </div>
+      <div class="mt-8 grid gap-4 lg:grid-cols-4">
+        <div class="rounded-2xl bg-white/75 p-5 ring-1 ring-amber-900/10">
+          <p class="text-sm font-semibold text-orange-600">01 Input</p>
+          <p class="mt-2">프롬프트와 운영 조건을 입력합니다.</p>
+        </div>
+        <div class="rounded-2xl bg-white/75 p-5 ring-1 ring-amber-900/10">
+          <p class="text-sm font-semibold text-orange-600">02 Draft</p>
+          <p class="mt-2">AI 초안을 만들고 prompt log를 남깁니다.</p>
+        </div>
+        <div class="rounded-2xl bg-white/75 p-5 ring-1 ring-amber-900/10">
+          <p class="text-sm font-semibold text-orange-600">03 Review</p>
+          <p class="mt-2">발행 전 검토와 수정 포인트를 정리합니다.</p>
+        </div>
+        <div class="rounded-2xl bg-white/75 p-5 ring-1 ring-amber-900/10">
+          <p class="text-sm font-semibold text-orange-600">04 Publish Ready</p>
+          <p class="mt-2">티스토리 발행 직전 상태로 넘깁니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="focus" class="grid gap-5 lg:grid-cols-3">
+      <article class="paper rounded-[1.75rem] p-6">
+        <i data-lucide="pen-tool" class="h-8 w-8 text-orange-500"></i>
+        <h2 class="display-font mt-4 text-2xl font-bold">초안 품질</h2>
+        <p class="mt-3 text-amber-950/75">문장 생성보다도, 블로그 목적에 맞는 톤과 구조를 유지하는 것이 중요합니다.</p>
+      </article>
+      <article class="paper rounded-[1.75rem] p-6">
+        <i data-lucide="notebook-text" class="h-8 w-8 text-orange-500"></i>
+        <h2 class="display-font mt-4 text-2xl font-bold">운영 기록</h2>
+        <p class="mt-3 text-amber-950/75">어떤 프롬프트와 설정이 어떤 초안을 만들었는지 남겨야 개선이 가능합니다.</p>
+      </article>
+      <article class="paper rounded-[1.75rem] p-6">
+        <i data-lucide="check-check" class="h-8 w-8 text-orange-500"></i>
+        <h2 class="display-font mt-4 text-2xl font-bold">발행 준비</h2>
+        <p class="mt-3 text-amber-950/75">실제 서비스 단계에서는 승인 큐와 SEO 검수 단계가 꼭 필요합니다.</p>
+      </article>
+    </section>
+
+    <section id="todo" class="grid gap-5 lg:grid-cols-3">
+      <article class="paper rounded-[1.75rem] p-6">
+        <span class="badge badge-warning">Product</span>
+        <h2 class="display-font mt-4 text-2xl font-bold">발행 승인 큐</h2>
+        <p class="mt-3 text-amber-950/75">초안 생성과 발행을 확실히 분리해 실수로 공개되지 않도록 해야 합니다.</p>
+      </article>
+      <article class="paper rounded-[1.75rem] p-6">
+        <span class="badge badge-info">SEO</span>
+        <h2 class="display-font mt-4 text-2xl font-bold">사전 검수 자동화</h2>
+        <p class="mt-3 text-amber-950/75">제목, 설명, 중복 표현, 링크 구조를 발행 전에 체크하는 기능이 필요합니다.</p>
+      </article>
+      <article class="paper rounded-[1.75rem] p-6">
+        <span class="badge badge-success">Ops</span>
+        <h2 class="display-font mt-4 text-2xl font-bold">실패 복구 루프</h2>
+        <p class="mt-3 text-amber-950/75">티스토리 API 실패와 재시도 기준을 운영자가 쉽게 이해할 수 있게 보여줘야 합니다.</p>
+      </article>
+    </section>
+  </main>
+
+  <script>lucide.createIcons();</script>
+</body>
 </html>
